@@ -1,0 +1,12 @@
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.venv*/
+.env
+# never commit vendor material: APKs, decompiled sources, native libraries, captures
+*.apk
+*.xapk
+*.so
+*.ps
+*.pcap
+jadx_out/

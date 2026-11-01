@@ -1,0 +1,60 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "EZVIZ Live",
+        "description": "Usa a sessão da conta já configurada na integração EZVIZ. Nenhuma senha é pedida ou guardada.",
+        "data": {
+          "ezviz_entry_id": "Conta EZVIZ"
+        }
+      }
+    },
+    "abort": {
+      "ezviz_missing": "Configure primeiro a integração EZVIZ com a conta na nuvem.",
+      "already_configured": "Esta conta já está ligada."
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Ao vivo",
+        "data": {
+          "stream_type": "Qualidade",
+          "allow_webrtc": "Permitir WebRTC (go2rtc)"
+        },
+        "data_description": {
+          "allow_webrtc": "Muitas câmeras EZVIZ mandam H.265. Desligado, a câmera usa só HLS. Ligado, o go2rtc tenta WebRTC, que só mostra H.265 em navegadores compatíveis."
+        }
+      }
+    }
+  },
+  "selector": {
+    "stream_type": {
+      "options": {
+        "1": "Principal (maior resolução)",
+        "2": "Secundário (mais leve)"
+      }
+    }
+  },
+  "entity": {
+    "camera": {
+      "live": {
+        "name": "Ao vivo"
+      },
+      "live_channel": {
+        "name": "Ao vivo {channel}"
+      }
+    }
+  },
+  "issues": {
+    "verification_code": {
+      "title": "{name}: falta o código de verificação",
+      "description": "A criptografia de imagem está ligada em {name} ({serial}), então o vídeo chega cifrado. Adicione a câmera na integração EZVIZ com o código de verificação da etiqueta do aparelho, ou desligue a criptografia de imagem no app EZVIZ."
+    }
+  },
+  "exceptions": {
+    "ezviz_missing": {
+      "message": "A conta EZVIZ ligada a esta integração foi removida."
+    }
+  }
+}

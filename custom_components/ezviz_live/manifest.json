@@ -1,0 +1,21 @@
+{
+  "domain": "ezviz_live",
+  "name": "EZVIZ Live",
+  "codeowners": [
+    "@cceloto"
+  ],
+  "config_flow": true,
+  "dependencies": [
+    "ezviz",
+    "stream"
+  ],
+  "documentation": "https://github.com/cceloto/ha-ezviz-live",
+  "integration_type": "hub",
+  "iot_class": "cloud_polling",
+  "issue_tracker": "https://github.com/cceloto/ha-ezviz-live/issues",
+  "loggers": [
+    "custom_components.ezviz_live"
+  ],
+  "requirements": [],
+  "version": "0.0.1"
+}

@@ -1,0 +1,58 @@
+name: Device report
+description: Report whether live view works (or not) with your EZVIZ device
+labels: ["device report"]
+body:
+  - type: input
+    id: model
+    attributes:
+      label: Device model
+      description: As shown in the EZVIZ app or the device label, e.g. CS-DP2C-R100-6E2WPFB-GD
+    validations:
+      required: true
+  - type: input
+    id: firmware
+    attributes:
+      label: Firmware version
+  - type: dropdown
+    id: result
+    attributes:
+      label: Result
+      options:
+        - Works (video and audio)
+        - Works, video only
+        - Does not work
+    validations:
+      required: true
+  - type: dropdown
+    id: power
+    attributes:
+      label: Power
+      options:
+        - Battery
+        - Wired
+  - type: dropdown
+    id: encryption
+    attributes:
+      label: Image encryption in the EZVIZ app
+      options:
+        - "Off"
+        - "On"
+        - I don't know
+  - type: input
+    id: ha_version
+    attributes:
+      label: Home Assistant version
+    validations:
+      required: true
+  - type: textarea
+    id: diagnostics
+    attributes:
+      label: Diagnostics
+      description: Settings → Devices & services → EZVIZ Live → ⋮ → Download diagnostics. Serials are masked.
+      render: json
+  - type: textarea
+    id: logs
+    attributes:
+      label: Logs
+      description: With `custom_components.ezviz_live` at debug level, the lines around the attempt.
+      render: text

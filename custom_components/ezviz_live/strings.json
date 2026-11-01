@@ -1,0 +1,60 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "EZVIZ Live",
+        "description": "Uses the session of the account already set up in the EZVIZ integration. No password is asked for or stored.",
+        "data": {
+          "ezviz_entry_id": "EZVIZ account"
+        }
+      }
+    },
+    "abort": {
+      "ezviz_missing": "Set up the EZVIZ integration with your cloud account first.",
+      "already_configured": "This account is already linked."
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Live view",
+        "data": {
+          "stream_type": "Quality",
+          "allow_webrtc": "Allow WebRTC (go2rtc)"
+        },
+        "data_description": {
+          "allow_webrtc": "Many EZVIZ cameras send H.265. Off: the camera uses HLS only. On: go2rtc tries WebRTC, which only shows H.265 in browsers that support it."
+        }
+      }
+    }
+  },
+  "selector": {
+    "stream_type": {
+      "options": {
+        "1": "Main stream (highest resolution)",
+        "2": "Sub stream (lighter)"
+      }
+    }
+  },
+  "entity": {
+    "camera": {
+      "live": {
+        "name": "Live"
+      },
+      "live_channel": {
+        "name": "Live {channel}"
+      }
+    }
+  },
+  "issues": {
+    "verification_code": {
+      "title": "{name}: verification code missing",
+      "description": "Image encryption is on for {name} ({serial}), so the video arrives encrypted. Add the camera to the EZVIZ integration with the verification code from the device label, or turn image encryption off in the EZVIZ app."
+    }
+  },
+  "exceptions": {
+    "ezviz_missing": {
+      "message": "The linked EZVIZ account was removed."
+    }
+  }
+}
