@@ -1,4 +1,4 @@
-# EZVIZ Live for Home Assistant
+![EZVIZ Live for Home Assistant](https://raw.githubusercontent.com/cceloto/ha-ezviz-live/main/docs/images/banner.png)
 
 [![HACS Custom](https://img.shields.io/badge/HACS-Custom-41BDF5.svg)](https://hacs.xyz/docs/faq/custom_repositories)
 [![GitHub Release](https://img.shields.io/github/v/release/cceloto/ha-ezviz-live?include_prereleases)](https://github.com/cceloto/ha-ezviz-live/releases)
