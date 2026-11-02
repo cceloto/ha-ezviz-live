@@ -6,6 +6,16 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and 
 
 ## [Unreleased]
 
+### Added
+
+- Integration logo (`logo.png`, `dark_logo.png` and @2x variants) for Home Assistant's integration pages.
+- README banner (also shown on the HACS repository page) and a GitHub social preview image for link previews.
+- `tools/make_brand.py`, which regenerates every brand image.
+
+### Changed
+
+- New integration icon: cloud camera lens with a live dot on a blue gradient, legible down to 32 px.
+
 ## [0.0.1] - 2026-11-01
 
 ### Added
