@@ -11,6 +11,10 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and 
 - Integration logo (`logo.png`, `dark_logo.png` and @2x variants) for Home Assistant's integration pages.
 - README banner (also shown on the HACS repository page) and a GitHub social preview image for link previews.
 - `tools/make_brand.py`, which regenerates every brand image.
+- Issue forms for bug reports, feature requests, and documentation/texts/translations, next to the device report;
+  blank issues are disabled.
+- README: tested hardware, a clearer compatibility matrix (device types, features, how to check a device),
+  how Home Assistant picks the language, how to contribute, and a "Built with Claude Code" disclosure.
 
 ### Changed
 
