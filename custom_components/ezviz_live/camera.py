@@ -16,7 +16,7 @@ from homeassistant.helpers.entity_platform import AddConfigEntryEntitiesCallback
 from . import EzvizLiveConfigEntry, EzvizLiveData
 from .api import LiveChannel
 from .auth import camera_verification_code
-from .const import (CONF_ALLOW_WEBRTC, CONF_STREAM_TYPE, DEFAULT_ALLOW_WEBRTC, DEFAULT_STREAM_TYPE, DOMAIN,
+from .const import (CONF_ALLOW_WEBRTC, CONF_AREA_SYNCED, CONF_STREAM_TYPE, DEFAULT_ALLOW_WEBRTC, DEFAULT_STREAM_TYPE, DOMAIN,
                     EZVIZ_DOMAIN)
 from .hub import LiveHub, Opened
 from .image_crypto import PsVideoDecryptor
@@ -40,6 +40,21 @@ async def async_setup_entry(hass: HomeAssistant, entry: EzvizLiveConfigEntry,
     async_add_entities(EzvizLiveCamera(data, ch, stream_type, allow_webrtc) for ch in data.channels.values())
 
 
+def _copy_area_once(hass: HomeAssistant, entry: EzvizLiveConfigEntry, serial: str) -> None:
+    """Put a new linked device in the area of the core ezviz device, once; later changes are the user's."""
+    done = entry.data.get(CONF_AREA_SYNCED, [])
+    if serial in done:
+        return
+    reg = dr.async_get(hass)
+    ours = reg.async_get_device_by_identifier((EZVIZ_DOMAIN, serial), entry.entry_id)
+    if ours is None:
+        return
+    core = reg.async_get_device_by_identifier((EZVIZ_DOMAIN, serial), entry.runtime_data.ezviz_entry_id)
+    if core and core.area_id and not ours.area_id:
+        reg.async_update_device(ours.id, area_id=core.area_id)
+    hass.config_entries.async_update_entry(entry, data={**entry.data, CONF_AREA_SYNCED: sorted({*done, serial})})
+
+
 class EzvizLiveCamera(Camera):
     _attr_has_entity_name = True
     _attr_supported_features = CameraEntityFeature.STREAM
@@ -58,9 +73,17 @@ class EzvizLiveCamera(Camera):
             self._attr_translation_placeholders = {"channel": ch.channel_name}
         else:
             self._attr_translation_key = "live"
-        # same identifier as the core ezviz integration: the camera joins the existing device and its area
-        self._attr_device_info = DeviceInfo(identifiers={(EZVIZ_DOMAIN, ch.serial)}, name=ch.device_name,
-                                            manufacturer="EZVIZ", model=ch.model)
+        # Since HA 2026.8 every config entry owns its own device. Sharing the core ezviz identifier (and the MAC)
+        # makes ours a *linked device* of the one the core integration creates.
+        self._attr_device_info = DeviceInfo(
+            identifiers={(EZVIZ_DOMAIN, ch.serial)},
+            connections={(dr.CONNECTION_NETWORK_MAC, dr.format_mac(ch.mac))} if ch.mac else set(),
+            name=ch.device_name,
+            manufacturer="EZVIZ",
+            model=ch.model,
+            model_id=ch.model_id,
+            sw_version=ch.firmware or None,
+        )
         self._hub = LiveHub(ch.key, self._open, data.client_key, on_change=self._hub_changed)
         data.relay.add(self._hub)
 
@@ -124,7 +147,8 @@ class EzvizLiveCamera(Camera):
 
     async def _motion_image(self) -> bytes | None:
         """Before the first session: the last motion picture the core ezviz integration exposes for the device."""
-        device = dr.async_get(self.hass).async_get_device(identifiers={(EZVIZ_DOMAIN, self._ch.serial)})
+        device = dr.async_get(self.hass).async_get_device_by_identifier(
+            (EZVIZ_DOMAIN, self._ch.serial), self._data.ezviz_entry_id)
         component = self.hass.data.get(IMAGE_COMPONENT)
         if not device or not component:
             return None
@@ -151,6 +175,11 @@ class EzvizLiveCamera(Camera):
             if image := await self.stream.async_get_image(width, height):
                 self._last_image = image
         return self._last_image or await self._motion_image()
+
+    async def async_added_to_hass(self) -> None:
+        await super().async_added_to_hass()
+        # the device is registered by now
+        _copy_area_once(self.hass, self.platform.config_entry, self._ch.serial)
 
     async def async_will_remove_from_hass(self) -> None:
         await self._hub.stop()

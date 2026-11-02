@@ -16,6 +16,15 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and 
 - README: tested hardware, a clearer compatibility matrix (device types, features, how to check a device),
   how Home Assistant picks the language, how to contribute, and a "Built with Claude Code" disclosure.
 
+### Fixed
+
+- Device model now shows the commercial name (e.g. `DP2C`, as the EZVIZ app and the core integration show it);
+  the full product code moved to `model_id`, and the firmware version is filled in.
+- Device linking on Home Assistant 2026.8+, where every integration owns its own device: the camera's device
+  shares the core EZVIZ identifier and MAC address, so it is listed as a linked device, and it gets the core
+  device's area once when it is created.
+- The motion-picture fallback for thumbnails now looks up the core device unambiguously.
+
 ### Changed
 
 - New integration icon: cloud camera lens with a live dot on a blue gradient, legible down to 32 px.
