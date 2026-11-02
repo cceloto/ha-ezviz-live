@@ -6,6 +6,8 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and 
 
 ## [Unreleased]
 
+## [0.0.2] - 2026-11-01
+
 ### Added
 
 - Integration logo (`logo.png`, `dark_logo.png` and @2x variants) for Home Assistant's integration pages.
@@ -49,5 +51,6 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and 
 
 Tested with: EZVIZ DP2C (CS-DP2C-R100-6E2WPFB-GD, firmware V5.3.3 build 250911), Home Assistant 2026.10.4.
 
-[Unreleased]: https://github.com/cceloto/ha-ezviz-live/compare/v0.0.1...HEAD
+[Unreleased]: https://github.com/cceloto/ha-ezviz-live/compare/v0.0.2...HEAD
+[0.0.2]: https://github.com/cceloto/ha-ezviz-live/compare/v0.0.1...v0.0.2
 [0.0.1]: https://github.com/cceloto/ha-ezviz-live/releases/tag/v0.0.1
