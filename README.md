@@ -32,7 +32,7 @@ Live video and audio from EZVIZ cameras **through the EZVIZ cloud**, the same wa
 - 🔋 Battery friendly: the device is woken **only while someone is watching**, and the session closes about 35 s after the last viewer leaves.
 - 🖼️ Thumbnails never wake the device: they show the last frame of the previous session or, before that, the last motion picture from the EZVIZ integration.
 - 🔑 No extra login: reuses the session of the core **EZVIZ** integration. No password is asked for or stored.
-- 🧩 The camera joins the existing EZVIZ device (same area, same device page).
+- 🧩 Shows up as a **linked device** of the EZVIZ device, in the same area and with the model name you know from the box (e.g. **DP2C**).
 - 🌍 English and Brazilian Portuguese, chosen by Home Assistant's language settings.
 - 🛠️ Diagnostics download with masked serials, for bug reports.
 
@@ -215,7 +215,7 @@ Vídeo e áudio ao vivo de câmeras EZVIZ **pela nuvem EZVIZ**, do mesmo jeito q
 - 🔋 Poupa bateria: o aparelho só acorda **enquanto alguém está assistindo**, e a sessão fecha uns 35 s depois que o último sai.
 - 🖼️ A miniatura nunca acorda o aparelho: mostra o último quadro da sessão anterior ou, antes disso, a foto do último movimento da integração EZVIZ.
 - 🔑 Sem login extra: reaproveita a sessão da integração **EZVIZ** nativa. Nenhuma senha é pedida ou guardada.
-- 🧩 A câmera entra no aparelho EZVIZ que já existe (mesma área, mesma página).
+- 🧩 Aparece como **aparelho vinculado** ao aparelho da EZVIZ, na mesma área e com o nome de modelo da caixa (ex.: **DP2C**).
 - 🌍 Inglês e português do Brasil, escolhidos pelas configurações de idioma do Home Assistant.
 - 🛠️ Diagnóstico para download com serial mascarado, para relatar problemas.
 

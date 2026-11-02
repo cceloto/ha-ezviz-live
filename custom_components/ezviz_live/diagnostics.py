@@ -26,6 +26,7 @@ async def async_get_config_entry_diagnostics(hass: HomeAssistant, entry: EzvizLi
             "channel": ch.channel,
             "channels_on_device": ch.channels_on_device,
             "model": ch.model,
+            "model_id": ch.model_id,
             "firmware": ch.firmware,
             "online": ch.online,
             "image_encrypted": ch.image_encrypted,

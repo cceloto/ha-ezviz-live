@@ -25,6 +25,7 @@ PLATFORMS = [Platform.CAMERA]
 
 @dataclass
 class EzvizLiveData:
+    ezviz_entry_id: str
     cloud: EzvizCloud
     channels: dict[str, LiveChannel]
     relay: RelayServer
@@ -49,7 +50,7 @@ async def async_setup_entry(hass: HomeAssistant, entry: EzvizLiveConfigEntry) ->
     client_key = await hass.async_add_executor_job(client_key_from_pem, entry.data[CONF_CLIENT_KEY])
     relay = RelayServer()
     await relay.start()
-    entry.runtime_data = EzvizLiveData(cloud, channels, relay, client_key)
+    entry.runtime_data = EzvizLiveData(ezviz_entry_id, cloud, channels, relay, client_key)
     await hass.config_entries.async_forward_entry_setups(entry, PLATFORMS)
     return True
 
