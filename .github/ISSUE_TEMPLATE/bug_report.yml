@@ -1,0 +1,76 @@
+name: Bug report
+description: Something does not work as described
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to report this. English or Portuguese are both fine.
+        For "does my camera work?" reports, use the **Device report** template instead.
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Before you start
+      options:
+        - label: I searched the existing issues and this is not a duplicate.
+          required: true
+        - label: The core EZVIZ integration is loaded and working (its entities update).
+          required: true
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened?
+      description: What you did, what you expected and what happened instead.
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      placeholder: |
+        1. Open the camera card
+        2. ...
+  - type: input
+    id: version
+    attributes:
+      label: EZVIZ Live version
+      placeholder: "0.0.1"
+    validations:
+      required: true
+  - type: input
+    id: ha_version
+    attributes:
+      label: Home Assistant version and installation type
+      placeholder: "2026.10.4, Home Assistant OS on Raspberry Pi 4"
+    validations:
+      required: true
+  - type: input
+    id: model
+    attributes:
+      label: Device model and firmware
+      placeholder: "CS-DP2C-R100-6E2WPFB-GD, V5.3.3 build 250911"
+    validations:
+      required: true
+  - type: dropdown
+    id: client
+    attributes:
+      label: Where were you watching?
+      multiple: true
+      options:
+        - Home Assistant app (Android)
+        - Home Assistant app (iOS)
+        - Browser (desktop)
+        - Browser (mobile)
+        - Not related to viewing
+  - type: textarea
+    id: diagnostics
+    attributes:
+      label: Diagnostics
+      description: Settings → Devices & services → EZVIZ Live → ⋮ → Download diagnostics. Serials are masked.
+      render: json
+  - type: textarea
+    id: logs
+    attributes:
+      label: Logs
+      description: With `custom_components.ezviz_live` at debug level, the lines around the problem.
+      render: text

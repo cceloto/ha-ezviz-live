@@ -13,6 +13,13 @@ body:
     id: firmware
     attributes:
       label: Firmware version
+  - type: input
+    id: version
+    attributes:
+      label: EZVIZ Live version
+      placeholder: "0.0.1"
+    validations:
+      required: true
   - type: dropdown
     id: result
     attributes:
