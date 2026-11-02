@@ -3,7 +3,7 @@
 [![HACS Custom](https://img.shields.io/badge/HACS-Custom-41BDF5.svg)](https://hacs.xyz/docs/faq/custom_repositories)
 [![GitHub Release](https://img.shields.io/github/v/release/cceloto/ha-ezviz-live?include_prereleases)](https://github.com/cceloto/ha-ezviz-live/releases)
 [![Validate](https://github.com/cceloto/ha-ezviz-live/actions/workflows/validate.yml/badge.svg)](https://github.com/cceloto/ha-ezviz-live/actions/workflows/validate.yml)
-[![License: MIT](https://img.shields.io/github/license/cceloto/ha-ezviz-live)](LICENSE)
+[![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/cceloto/ha-ezviz-live/blob/main/LICENSE)
 [![Built with Claude Code](https://img.shields.io/badge/Built%20with-Claude%20Code-D97757)](#built-with-claude-code)
 
 **[English](#english)** | **[Português (Brasil)](#português-brasil)**
@@ -44,7 +44,7 @@ EZVIZ cloud ──(VTM → VTDU, encrypted)──▶ ezviz_live ──MPEG-PS─
                      session borrowed from the core EZVIZ integration
 ```
 
-The integration speaks the EZVIZ stream-server protocol (VTM/VTDU), decrypts the media and hands an MPEG-PS feed to Home Assistant's built-in `stream` component through a local relay on `127.0.0.1`. Home Assistant then serves it as HLS. Video is copied, never transcoded, so it runs fine on a Raspberry Pi 4. Protocol details are in [docs/protocol.md](docs/protocol.md).
+The integration speaks the EZVIZ stream-server protocol (VTM/VTDU), decrypts the media and hands an MPEG-PS feed to Home Assistant's built-in `stream` component through a local relay on `127.0.0.1`. Home Assistant then serves it as HLS. Video is copied, never transcoded, so it runs fine on a Raspberry Pi 4. Protocol details are in [docs/protocol.md](https://github.com/cceloto/ha-ezviz-live/blob/main/docs/protocol.md).
 
 ### Requirements
 
@@ -175,7 +175,7 @@ Development:
 
 - Tests: `pip install -r requirements_test.txt && pytest`.
 - Branches: pull requests target **`develop`**; `main` only receives releases from `develop`.
-- Versioning: [Semantic Versioning](https://semver.org/). `0.x.y` releases may change behavior between minor versions. See [CHANGELOG.md](CHANGELOG.md).
+- Versioning: [Semantic Versioning](https://semver.org/). `0.x.y` releases may change behavior between minor versions. See [CHANGELOG.md](https://github.com/cceloto/ha-ezviz-live/blob/main/CHANGELOG.md).
 
 ### Built with Claude Code
 
@@ -189,7 +189,7 @@ This is an unofficial, independent interoperability project for personal use. It
 
 ### License
 
-[MIT](LICENSE)
+[MIT](https://github.com/cceloto/ha-ezviz-live/blob/main/LICENSE)
 
 ---
 
@@ -227,7 +227,7 @@ nuvem EZVIZ ──(VTM → VTDU, cifrado)──▶ ezviz_live ──MPEG-PS─�
                     sessão emprestada da integração EZVIZ nativa
 ```
 
-A integração fala o protocolo dos servidores de vídeo da EZVIZ (VTM/VTDU), decifra a mídia e entrega um fluxo MPEG-PS ao componente `stream` do Home Assistant por um relay local em `127.0.0.1`. O Home Assistant serve isso como HLS. O vídeo é copiado, nunca recodificado, e roda bem num Raspberry Pi 4. Detalhes do protocolo em [docs/protocol.md](docs/protocol.md).
+A integração fala o protocolo dos servidores de vídeo da EZVIZ (VTM/VTDU), decifra a mídia e entrega um fluxo MPEG-PS ao componente `stream` do Home Assistant por um relay local em `127.0.0.1`. O Home Assistant serve isso como HLS. O vídeo é copiado, nunca recodificado, e roda bem num Raspberry Pi 4. Detalhes do protocolo em [docs/protocol.md](https://github.com/cceloto/ha-ezviz-live/blob/main/docs/protocol.md).
 
 ### Requisitos
 
@@ -358,7 +358,7 @@ Desenvolvimento:
 
 - Testes: `pip install -r requirements_test.txt && pytest`.
 - Branches: pull requests vão para a **`develop`**; a `main` só recebe versões vindas da `develop`.
-- Versões: [Semantic Versioning](https://semver.org/lang/pt-BR/). Versões `0.x.y` podem mudar de comportamento entre versões menores. Veja o [CHANGELOG.md](CHANGELOG.md).
+- Versões: [Semantic Versioning](https://semver.org/lang/pt-BR/). Versões `0.x.y` podem mudar de comportamento entre versões menores. Veja o [CHANGELOG.md](https://github.com/cceloto/ha-ezviz-live/blob/main/CHANGELOG.md).
 
 ### Desenvolvido com Claude Code
 
@@ -372,4 +372,4 @@ Projeto independente e não oficial de interoperabilidade, para uso pessoal. Nã
 
 ### Licença
 
-[MIT](LICENSE)
+[MIT](https://github.com/cceloto/ha-ezviz-live/blob/main/LICENSE)
