@@ -47,8 +47,10 @@ class LiveChannel:
     channel: int
     device_name: str
     channel_name: str
-    model: str
+    model: str  # commercial name shown by the EZVIZ app and the core integration, e.g. "DP2C"
+    model_id: str  # full product code, e.g. "CS-DP2C-R100-6E2WPFB-GD"
     firmware: str
+    mac: str | None
     online: bool
     image_encrypted: bool
     stream_biz: str | None
@@ -61,6 +63,47 @@ class LiveChannel:
     @property
     def key(self) -> str:
         return f"{self.serial}_{self.channel}"
+
+
+def parse_channels(page: dict) -> dict[str, LiveChannel]:
+    """Every pagelist resource that has a VTM server, keyed by "<serial>_<channel>"."""
+    vtms = page.get("VTM") or {}
+    status = page.get("STATUS") or {}
+    devices = {d.get("deviceSerial"): d for d in page.get("deviceInfos", [])}
+    resources = [r for r in page.get("resourceInfos", []) if r.get("resourceId") in vtms]
+    per_device: dict[str, int] = {}
+    for r in resources:
+        per_device[r.get("deviceSerial")] = per_device.get(r.get("deviceSerial"), 0) + 1
+
+    out: dict[str, LiveChannel] = {}
+    for res in resources:
+        serial = res.get("deviceSerial")
+        dev = devices.get(serial, {})
+        vtm = vtms[res["resourceId"]]
+        pk = vtm.get("publicKey") or {}
+        channel = int(res.get("localIndex") or 1)
+        product_code = dev.get("deviceType") or ""
+        ch = LiveChannel(
+            serial=serial,
+            channel=channel,
+            device_name=dev.get("name") or serial,
+            channel_name=res.get("resourceName") or f"{channel}",
+            # same model value as the core ezviz integration, so the two never overwrite each other
+            model=dev.get("deviceSubCategory") or product_code,
+            model_id=product_code,
+            firmware=dev.get("version") or "",
+            mac=dev.get("mac") or None,
+            online=dev.get("status") == 1,
+            image_encrypted=str((status.get(serial) or {}).get("isEncrypt", 0)) == "1",
+            stream_biz=res.get("streamBizUrl"),
+            vtm_host=vtm.get("domain") or vtm.get("externalIp"),
+            vtm_port=int(vtm.get("port") or 8554),
+            vtm_key=base64.b64decode(pk["key"]) if pk.get("key") else None,
+            vtm_key_version=int(pk.get("version") or 0),
+            channels_on_device=per_device[serial],
+        )
+        out[ch.key] = ch
+    return out
 
 
 class EzvizCloud:
@@ -115,39 +158,7 @@ class EzvizCloud:
         """Every channel that has a VTM server, keyed by "<serial>_<channel>"."""
         page = await self._call("GET", "/v3/userdevices/v1/resources/pagelist",
                                 params={"filter": "VTM,STATUS", "limit": 50, "offset": 0, "groupId": -1})
-        vtms = page.get("VTM") or {}
-        status = page.get("STATUS") or {}
-        devices = {d.get("deviceSerial"): d for d in page.get("deviceInfos", [])}
-        resources = [r for r in page.get("resourceInfos", []) if r.get("resourceId") in vtms]
-        per_device: dict[str, int] = {}
-        for r in resources:
-            per_device[r.get("deviceSerial")] = per_device.get(r.get("deviceSerial"), 0) + 1
-
-        out: dict[str, LiveChannel] = {}
-        for res in resources:
-            serial = res.get("deviceSerial")
-            dev = devices.get(serial, {})
-            vtm = vtms[res["resourceId"]]
-            pk = vtm.get("publicKey") or {}
-            channel = int(res.get("localIndex") or 1)
-            ch = LiveChannel(
-                serial=serial,
-                channel=channel,
-                device_name=dev.get("name") or serial,
-                channel_name=res.get("resourceName") or f"{channel}",
-                model=dev.get("deviceType") or "",
-                firmware=dev.get("version") or "",
-                online=dev.get("status") == 1,
-                image_encrypted=str((status.get(serial) or {}).get("isEncrypt", 0)) == "1",
-                stream_biz=res.get("streamBizUrl"),
-                vtm_host=vtm.get("domain") or vtm.get("externalIp"),
-                vtm_port=int(vtm.get("port") or 8554),
-                vtm_key=base64.b64decode(pk["key"]) if pk.get("key") else None,
-                vtm_key_version=int(pk.get("version") or 0),
-                channels_on_device=per_device[serial],
-            )
-            out[ch.key] = ch
-        return out
+        return parse_channels(page)
 
     async def stream_token(self) -> str:
         """One ssn= token per live view; fetched in batches like the app does."""

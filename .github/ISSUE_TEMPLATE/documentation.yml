@@ -1,0 +1,36 @@
+name: Documentation, texts and translations
+description: Fix or improve the README, the protocol notes, UI texts or translations
+labels: ["documentation"]
+body:
+  - type: markdown
+    attributes:
+      value: English or Portuguese are both fine.
+  - type: dropdown
+    id: area
+    attributes:
+      label: What needs work?
+      multiple: true
+      options:
+        - README
+        - Protocol notes (docs/protocol.md)
+        - Texts in Home Assistant (setup wizard, options, repairs)
+        - A translation (new language or a correction)
+        - Other
+    validations:
+      required: true
+  - type: dropdown
+    id: language
+    attributes:
+      label: Language
+      multiple: true
+      options:
+        - English
+        - Português (Brasil)
+        - Other (say which below)
+  - type: textarea
+    id: suggestion
+    attributes:
+      label: What is wrong or missing, and what should it say?
+      description: Quote the current text when you can.
+    validations:
+      required: true
