@@ -22,6 +22,7 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and 
   repair issue when the code is missing.
 - Diagnostics with masked serials.
 - English and Brazilian Portuguese translations.
+- Integration icon (original artwork, not the EZVIZ logo).
 
 Tested with: EZVIZ DP2C (CS-DP2C-R100-6E2WPFB-GD, firmware V5.3.3 build 250911), Home Assistant 2026.10.4.
 
